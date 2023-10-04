@@ -47,7 +47,6 @@ export default function ModalExemplo(props) {
         e.preventDefault();
         const { name, value } = e.target;
         setProduto({ ...produto, [name]: value });
-        console.log(produto)
     };
 
     const handleSubmit = (e) => {
@@ -76,6 +75,8 @@ export default function ModalExemplo(props) {
                 body: JSON.stringify(produto),
             })
             .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error))
         }
         props.setOpen(false);
     };
@@ -133,7 +134,7 @@ export default function ModalExemplo(props) {
                                 />
                             </div>
                             <div>
-                                <button>CADASTRAR</button>
+                                {props.metodo == "PUT" ? <button>EDITAR</button> : <button>CADASTRAR</button>}
                             </div>
                         </fieldset>
                     </form>
