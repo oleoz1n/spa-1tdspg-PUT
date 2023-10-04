@@ -19,6 +19,8 @@ export default function Produtos() {
   // }, []);
 
   const [open, setOpen] = useState(false);
+  const [metodo, setMetodo] = useState("");
+  const [idSelecionado, setIdSelecionado] = useState(0);
 
   useEffect(() => {
     if (!open) {
@@ -52,15 +54,20 @@ export default function Produtos() {
     window.location("/produtos");
 
   }
+  const handleEditar = (id)=>{
+       setIdSelecionado(id)
+       setMetodo("PUT")
+       setOpen(true)
+  }
 
   return (
     <>
       <div>
         <h1>PRODUTOS</h1>
 
-        {open ? <ModalExemplo open={open} setOpen={setOpen} /> : ""}
-
-        <Link onClick={() => setOpen(true)}>Adicionar Produto</Link>
+        {open ? <ModalExemplo open={open} setOpen={setOpen} metodo={metodo} id={idSelecionado} />: ""}
+        
+        <Link onClick={() => {setMetodo("POST"); setOpen(true)}}>Adicionar Produto</Link>
 
         <table className={classes.tabelaProd}>
           <thead className={classes.tabelaCabecalho}>
@@ -91,7 +98,7 @@ export default function Produtos() {
                 </td>
                 <td>
                   {" "}
-                  <Link to={`/editar/produto/${produto.id}`}>
+                  <Link onClick={()=> handleEditar(produto.id)}>
                     <Editar />
                   </Link>{" "}
                   /{" "}

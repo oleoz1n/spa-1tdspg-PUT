@@ -1,14 +1,22 @@
 import { useState } from "react";
 import "./ModalInserir.scss";
+import { useEffect } from "react";
 
-export default function ModalExemplo(props, method = "POST") {
-    if (method === "PUT") {
+export default function ModalExemplo(props) {
+    if (props.metodo == "PUT") {
         document.title = "EDITAR";
-    } else if (method === "POST") {
+    } else if (props.metodo == "POST") {
         document.title = "CADASTRAR";
     }
-    let novoId;
-    if (method == "POST") {
+    const [produto, setProduto] = useState({
+        id: "",
+        nome: "",
+        preco: "",
+        desc: "",
+        img: "",
+    });
+    useEffect(()=>{
+    if (props.metodo == "POST") {
         fetch("http://localhost:5000/produtos", {
             method: "GET",
             headers: {
@@ -17,20 +25,12 @@ export default function ModalExemplo(props, method = "POST") {
         })
             .then((response) => response.json())
             .then((data) => {
-                novoId = data[data.length - 1].id + 1;
+                setProduto({...produto, [id]: data[data.length - 1].id + 1});
             })
             .catch((error) => console.log(error));
     }
-    const [produto, setProduto] = useState({
-        id: novoId,
-        nome: "",
-        preco: "",
-        desc: "",
-        img: "",
-    });
-    if (method == "PUT") {
-        let id = props.id;
-        fetch("http://localhost:5000/produtos/" + id, {
+    if (props.metodo == "PUT") {
+        fetch("http://localhost:5000/produtos/" + props.id, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -41,17 +41,19 @@ export default function ModalExemplo(props, method = "POST") {
                 setProduto(data);
             });
     }
+}, [ ])
 
     const handleChange = (e) => {
         e.preventDefault();
         const { name, value } = e.target;
         setProduto({ ...produto, [name]: value });
+        console.log(produto)
     };
 
     const handleSubmit = (e) => {
+        
         e.preventDefault();
-
-        if (method == "POST") {
+        if (props.metodo == "POST") {
             fetch("http://localhost:5000/produtos", {
                 method: "POST",
                 headers: {
@@ -67,7 +69,7 @@ export default function ModalExemplo(props, method = "POST") {
                 })
                 .then((data) => console.log(data))
                 .catch((error) => console.log(error));
-        } else if (method == "PUT") {
+        } else if (props.metodo == "PUT") {
             fetch("http://localhost:5000/produtos", {
                 method: "PUT",
                 headers: {"Content-Type" : "application/json"},
