@@ -70,13 +70,12 @@ export default function ModalExemplo(props) {
                 .then((data) => console.log(data))
                 .catch((error) => console.log(error));
         } else if (props.metodo == "PUT") {
-            fetch("http://localhost:5000/produtos", {
+            fetch("http://localhost:5000/produtos/"+props.id, {
                 method: "PUT",
                 headers: {"Content-Type" : "application/json"},
                 body: JSON.stringify(produto),
             })
             .then(response => response.json())
-            .then(data => this.setState({id: data.id}));
         }
         props.setOpen(false);
     };
