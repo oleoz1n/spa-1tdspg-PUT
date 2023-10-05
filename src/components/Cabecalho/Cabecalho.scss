@@ -1,34 +1,35 @@
 
-.cabecalho{
-    background-color: #888;
+.cabecalho {
+    background-color: #6959CD;
     color: #fff;
-    width: 20%;
-    margin: 1% 40% 0 0;
+    width: 100%; 
     font-size: 1.5rem;
     font-weight: bold;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 1% 0; 
 
-    ul{
+    ul {
         list-style: none;
+        padding: 0;
 
-        li a{
-            display: block;
-            text-decoration: none;
-            padding: 8px 32px;
-            color: #fff;
-            transition: background-color ease-out 300ms, color ease-out 300ms;
+        li {
+            a {
+                display: block;
+                text-decoration: none;
+                padding: 8px 16px;
+                color: #fff;
+                transition: background-color ease-out 300ms, color ease-out 300ms;
 
-            &:hover{
-                background-color: #79f;
-                color: #000;
+                &:hover {
+                    color: #000;
+                }
             }
-
         }
     }
 
-    //Vamos criar uma classe para a página ou rota ativa:
-    .active{
-        background-color: #a52a2a;
-        color: #fff;
+    .active {
+        background-color: 	#191970;
     }
-
 }
