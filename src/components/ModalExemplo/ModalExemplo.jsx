@@ -84,11 +84,11 @@ export default function ModalExemplo(props) {
     if (props.open) {
         return (
             <div className="container">
-                <h1>Cadastrar Produto</h1>
+                {props.metodo == "POST" ? <h1>Cadastrar Produto</h1> : <h1>Editar Produto</h1>}
                 <div>
                     <form onSubmit={handleSubmit}>
                         <fieldset>
-                            <legend>Novo Produto</legend>
+                            {props.metodo == "POST" ?  <legend>Novo Produto</legend> : <legend>Editar Produto</legend>}
                             <div>
                                 <label htmlFor="idProduto">Nome Produto:</label>
                                 <input
